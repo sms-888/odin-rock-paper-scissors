@@ -98,7 +98,7 @@ function game() {
 
 }
 
-game();
+//game();
 
 /*const playerSelection = 'rock';
 const computerSelection = getComputerChoice();
