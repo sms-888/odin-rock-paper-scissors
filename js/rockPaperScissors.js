@@ -68,40 +68,56 @@ function game() {
     const WIN = 'WIN', LOST = 'LOST', TIE = 'TIE';
     const promptMsg = "Enter Choice: ";
     const outputWin = "Player Wins", outputLost = "Player Loses", outputTie = "Game Tied";
-    const MAXGAMES = 5;
+    const MAXWIN = 5;
     let player = 0, computer = 0;
     let roundResult, playerSelection,computerSelection;
 
-    // play the 5 rounds
-    for (i = 0; i < MAXGAMES; i++) {
-        playerSelection = prompt(promptMsg, "");
+    // play till playerScore or computerScore is equal to 5
+    if (playerScore < MAXWIN && computerScore < MAXWIN) {
+        playerSelection = btn.textContent;
         computerSelection = getComputerChoice();
 
         roundResult = playRound(playerSelection, computerSelection);
-        console.log(roundResult);
-
+        //console.log(roundResult);
+        
         if (roundResult === WIN) {
-            player++;
+            playerScore++;
         } else if (roundResult === LOST) {
-            computer++;
+            computerScore++;
         }
+        result = `Result: ${roundResult}`;
+        scoreBoard = `Player Score: ${playerScore}\tComputer Score: ${computerScore}`;
+        resultPara.textContent = result;
+        scorePara.textContent = scoreBoard;
     }
 
-    // output
-    if (player == computer) {
-        console.log(outputTie);
-    } else if (player > computer) {
-        console.log(outputWin);
-    } else {
-        console.log(outputLost);
+    if (playerScore >= MAXWIN) {
+        result = `Result: Player Wins`;
+        resultPara.textContent = result;
+    } else if (computerScore >= MAXWIN) {
+        result = `Result: Computer Wins`;
+        resultPara.textContent = result;
     }
+
 
 }
 
-//game();
+// GUI code
+const buttons = document.querySelectorAll('ul button');
+const resultDiv = document.querySelector('.result');
+const resultPara = document.querySelector('#result');
+const scorePara = document.querySelector('#score')
 
-/*const playerSelection = 'rock';
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));*/
+let playerScore = 0;
+let computerScore = 0;
+let result = `Result: `;
+let scoreBoard = `Player Score: ${playerScore}\tComputer Score: ${computerScore}`;
+
+resultPara.textContent = result;
+scorePara.textContent = scoreBoard;
+
+for (btn of buttons) {
+    btn.addEventListener('click', game);
+}
 
 
